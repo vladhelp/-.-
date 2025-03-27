@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Счётчик жизней</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-align: center;
+            background: #222; /* Чёрный фон как в макете */
+            transition: background 0.5s ease;
+        }
+        .icons {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+        }
+        .icon {
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+        }
+        .menu {
+            position: absolute;
+            top: 60px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            border-radius: 10px;
+            padding: 10px;
+            display: none;
+        }
+        .menu-item {
+            padding: 8px 15px;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+        .counter {
+            font-size: 100px; /* Крупная цифра как в макете */
+            font-weight: 800;
+            margin: 0;
+            color: white;
+        }
+        .name {
+            font-size: 24px; /* Размер как в макете */
+            margin-top: 10px;
+            color: #aaa; /* Серый текст */
+        }
+        .buttons {
+            position: absolute;
+            bottom: 30px;
+            display: flex;
+            gap: 20px;
+        }
+        button {
+            padding: 10px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid #555;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="icons">
+        <div class="icon" onclick="resetCounter()">↻</div>
+        <div class="icon" onclick="toggleMenu()">☰</div>
+    </div>
+    <div class="menu" id="menu">
+        <div class="menu-item" onclick="changeBackground('steppe')">Степи</div>
+        <div class="menu-item" onclick="changeBackground('mountains')">Горы</div>
+        <div class="menu-item" onclick="changeBackground('darkness')">Тьма</div>
+        <div class="menu-item" onclick="changeBackground('swamp')">Болото</div>
+        <div class="menu-item" onclick="changeBackground('forest')">Лес</div>
+    </div>
+
+    <!-- Основной контент как в макете -->
+    <div class="counter" id="counter">30</div>
+    <div class="name">Имя героя</div>
+
+    <!-- Кнопки управления -->
+    <div class="buttons">
+        <button onclick="changeCounter(-1)">-1</button>
+        <button onclick="changeCounter(1)">+1</button>
+    </div>
+
+    <script>
+        let count = 30;
+        const counterElement = document.getElementById('counter');
+        const menu = document.getElementById('menu');
+
+        const backgrounds = {
+            "steppe": "#d4a373", 
+            "mountains": "#a2d2ff",
+            "darkness": "#1a1a2e",
+            "swamp": "#3a5a40",
+            "forest": "#2d6a4f"
+        };
+
+        function toggleMenu() {
+            menu.style.display = menu.style.display === "block" ? "none" : "block";
+        }
+
+        function changeBackground(zone) {
+            document.body.style.background = backgrounds[zone];
+            menu.style.display = "none";
+        }
+
+        function changeCounter(value) {
+            count += value;
+            if (count < 0) count = 0;
+            counterElement.textContent = count;
+        }
+
+        function resetCounter() {
+            count = 30;
+            counterElement.textContent = count;
+            document.body.style.background = "#222"; // Возврат к исходному фону
+        }
+    </script>
+</body>
+</html>
